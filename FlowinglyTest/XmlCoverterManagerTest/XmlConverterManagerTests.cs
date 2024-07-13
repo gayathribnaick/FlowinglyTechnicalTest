@@ -1,6 +1,6 @@
 ﻿using FlowinglyTest.Exceptions;
 using FlowinglyTest.Managers;
-using ManagerTests.EmailSampleFormats;
+using ManagerTests.TestData;
 
 namespace ManagerTests
 {
@@ -15,7 +15,7 @@ namespace ManagerTests
         [TestMethod]
         public void ValidateEmail_ParsesSuccesfully()
         {
-            Dictionary<string, object> xmlTags = ConvertXmlManager.GetXmlDataManager(EmailSamples.WorkingEmail, 0);
+            Dictionary<string, object> xmlTags = ConvertXmlManager.GetXmlDataManager(EmailSamples.WorkingEmail, TaxData.ZeroTax);
             Assert.IsNotNull(xmlTags);
         }
 
@@ -24,7 +24,7 @@ namespace ManagerTests
         [ExpectedException(typeof(ApiException))]
         public void ValidateEmail_ParsesFails()
         {
-            Dictionary<string, object> xmlTags = ConvertXmlManager.GetXmlDataManager(EmailSamples.ExpenseTagMissingEmail, 0);           
+            Dictionary<string, object> xmlTags = ConvertXmlManager.GetXmlDataManager(EmailSamples.ExpenseTagMissingEmail, TaxData.ZeroTax);           
         }
     }
 }
