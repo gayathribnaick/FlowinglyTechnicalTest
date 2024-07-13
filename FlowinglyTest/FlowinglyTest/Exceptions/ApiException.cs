@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace FlowinglyTest.Exceptions
+﻿namespace FlowinglyTest.Exceptions
 {
     public class ApiException : Exception
     {

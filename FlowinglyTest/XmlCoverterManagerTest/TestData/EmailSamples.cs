@@ -1,4 +1,4 @@
-﻿namespace ManagerTests.EmailSampleFormats
+﻿namespace ManagerTests.TestData
 {
     public static class EmailSamples
     {
