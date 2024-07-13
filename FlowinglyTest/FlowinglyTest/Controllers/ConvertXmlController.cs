@@ -8,9 +8,9 @@ namespace FlowinglyTest.Controllers
 
         [HttpPost]
         [Route("GetXmlData")]
-        public Dictionary<string, string>? GetXmlData(string emailText)
+        public Dictionary<string, object>? GetXmlData(string emailText, double taxApplicable)
         {
-            return ConvertXmlManager.GetXmlDataManager(emailText);
+            return ConvertXmlManager.GetXmlDataManager(emailText, taxApplicable);
         }
     }
 }
