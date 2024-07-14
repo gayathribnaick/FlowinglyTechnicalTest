@@ -12,7 +12,7 @@ namespace FlowinglyTest.Managers
 
             if (string.IsNullOrEmpty(emailText))
             {
-                throw new ApiException("The Email is Empty."); // throw exception if email content is empty
+                throw new APIExceptionBase("The Email is Empty."); // throw exception if email content is empty
             }
 
 
@@ -24,7 +24,7 @@ namespace FlowinglyTest.Managers
 
                 if (!emailText.Contains("</" + tag + ">")) // make sure tag has ending tag otherwise throw error
                 {
-                    throw new ApiException($"Missing closing tag for - {tag}");
+                    throw new XmlTagNotFoundException($"Missing closing tag for - {tag}");
                 }
 
                 processedPosition = emailText.IndexOf("</" + tag + ">") + ("</" + tag + ">").Length; // this is the position upto which we took data for extraction
@@ -49,7 +49,7 @@ namespace FlowinglyTest.Managers
                 }
                 catch (Exception ex)
                 {
-                    throw new ApiException(ex.Message);
+                    throw new ParseXmlException(ex.Message);
                 }
 
             }
@@ -87,18 +87,18 @@ namespace FlowinglyTest.Managers
 
         private static void ValidateXmlData(Dictionary<string, object> completeXmlList, double taxApplicable)
         {
-            if(taxApplicable < 0)
+            if (taxApplicable < 0)
             {
-                throw new ApiException("Tax cannot be less than zero.");
+                throw new DataErrorException("Tax cannot be less than zero.");
             }
 
             if (!completeXmlList.ContainsKey("total")) // if total tag is missing throw error
             {
-                throw new ApiException($"Total is missing from the message!!.");
+                throw new DataErrorException($"Total is missing from the message!!.");
             }
             else
             {
-                double total = Double.Parse(Convert.ToString(completeXmlList["total"]), System.Globalization.CultureInfo.InvariantCulture);                
+                double total = Double.Parse(Convert.ToString(completeXmlList["total"]), System.Globalization.CultureInfo.InvariantCulture);
 
                 completeXmlList["total"] = Convert.ToDouble(total + (total * (taxApplicable / 100)));
             }
